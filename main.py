@@ -4,8 +4,9 @@ import secrets
 import base64
 import wave
 import sys
-from array import array
 import tkinter as tk
+
+from array import array
 from tkinter import filedialog, messagebox, scrolledtext
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
@@ -135,7 +136,7 @@ def embed_payload_in_wav(input_wav_path: str, payload: bytes, output_wav_path: s
 
 def extract_payload_from_wav(stego_wav_path: str, payload_length_bytes: int) -> bytes:
     with wave.open(stego_wav_path, "rb") as wf:
-        n_channels = wf.getnchannels()
+        wf.getnchannels()
         sampwidth = wf.getsampwidth()
         n_frames = wf.getnframes()
         frames = wf.readframes(n_frames)
@@ -202,9 +203,6 @@ def extract_and_decrypt(stego_wav_path: str, password: str):
             "Decryption failed: wrong password or corrupted payload."
         ) from e
     return decrypted
-
-
-# GUI
 
 
 class AudioStegApp:
@@ -453,8 +451,6 @@ class AudioStegApp:
             messagebox.showerror("Error", f"Unexpected error:\n{e}")
             self.set_status("Unexpected error.")
 
-
-# Run app
 
 if __name__ == "__main__":
     root = tk.Tk()
